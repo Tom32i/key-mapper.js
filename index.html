@@ -12,18 +12,32 @@
         <div>
             <label for="keyboard">Keyboard mapping:</label>
             <input type="text" id="keyboard"/>
+            <p>Value: <span class="value"></span></p>
         </div>
 
         <div>
             <label for="gamepad">Gamepad mapping:</label>
             <input type="text" id="gamepad"/>
+            <p>Value: <span class="value"></span></p>
+        </div>
+
+        <div>
+            <label for="gamepad">Distinct gamepad mapping:</label>
+            <input type="text" id="gamepad-distinct"/>
+            <p>Value: <span class="value"></span></p>
         </div>
 
         <script src="dist/key-mapper.js"></script>
         <script type="text/javascript">
             window.addEventListener('load', function () {
 
-                var gamepadListener = new GamepadListener({precision: 2, deadZone: 0.3});
+                var values = document.getElementsByClassName('value'),
+                    gamepadListener = new GamepadListener({
+                        precision: 2,
+                        deadZone: 0.3
+                    });
+
+                console.log(gamepadListener, values);
 
                 var keyboardMapper = new KeyboardMapper(),
                     keyboardInput = new InputListener(keyboardMapper, 'keyboard');
@@ -31,8 +45,25 @@
                 var gamepadMapper = new GamepadMapper(gamepadListener),
                     gamepadInput = new InputListener(gamepadMapper, 'gamepad');
 
-                keyboardMapper.on('change', function (e) { console.log(e); });
-                gamepadMapper.on('change', function (e) { console.log(e); });
+                var gamepadDistinctMapper = new GamepadMapper(gamepadListener, true),
+                    gamepadDistinctInput = new InputListener(gamepadDistinctMapper, 'gamepad-distinct');
+
+                keyboardMapper.on('change', function (e) {
+                    console.log(e);
+                    values[0].innerHTML = e.detail.value;
+                });
+
+                gamepadMapper.on('change', function (e) {
+                    console.log(e);
+                    values[1].innerHTML = e.detail.value;
+                });
+
+                gamepadDistinctMapper.on('change', function (e) {
+                    console.log(e);
+                    values[2].innerHTML = e.detail.value;
+                });
+
+                gamepadListener.start();
             });
         </script>
     </body>
