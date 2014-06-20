@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>key-mapper.js</title>
+        <meta name="description" content="Simple HTML5 Input Key mapper">
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>key-mapper.js</h1>
+        <p>Simple HTML5 Input Key mapper</p>
+
+        <div>
+            <label for="keyboard">Keyboard mapping:</label>
+            <input type="text" id="keyboard"/>
+        </div>
+
+        <div>
+            <label for="gamepad">Gamepad mapping:</label>
+            <input type="text" id="gamepad"/>
+        </div>
+
+        <script src="dist/key-mapper.js"></script>
+        <script type="text/javascript">
+            window.addEventListener('load', function () {
+
+                var gamepadListener = new GamepadListener({precision: 2, deadZone: 0.3});
+
+                var keyboardMapper = new KeyboardMapper(),
+                    keyboardInput = new InputListener(keyboardMapper, 'keyboard');
+
+                var gamepadMapper = new GamepadMapper(gamepadListener),
+                    gamepadInput = new InputListener(gamepadMapper, 'gamepad');
+
+                keyboardMapper.on('change', function (e) { console.log(e); });
+                gamepadMapper.on('change', function (e) { console.log(e); });
+            });
+        </script>
+    </body>
+</html>
