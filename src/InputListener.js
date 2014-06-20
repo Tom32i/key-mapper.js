@@ -9,7 +9,7 @@ function InputListener (mapper, input)
     EventEmitter.call(this);
 
     this.mapper  = mapper;
-    this.element = typeof(input) == 'string' ? document.getElementById(input) : input;
+    this.element = typeof(input) === 'string' ? document.getElementById(input) : input;
 
     this.onMapperListening = this.onMapperListening.bind(this);
     this.onMapperChange    = this.onMapperChange.bind(this);

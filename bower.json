@@ -1,6 +1,6 @@
 {
   "name": "key-mapper.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple HTML5 Input Key mapper",
   "keywords": [
     "input",
@@ -21,9 +21,9 @@
   ],
   "main": "dist/gamepad.min.js",
   "dependencies": {
-    "tom32i-event-emitter.js": "~0.0.1",
-    "tom32i-option-resolver.js": "~0.0.2",
-    "tom32i-gamepad.js": "~0.0.2"
+    "tom32i-event-emitter.js": "~0.0.*",
+    "tom32i-option-resolver.js": "~0.0.*",
+    "tom32i-gamepad.js": "~0.0.*"
   },
   "ignore": [
     "**/.*",

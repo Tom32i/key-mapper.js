@@ -8,7 +8,7 @@ function GamepadMapper(listener, identifyGamepad)
     Mapper.call(this);
 
     this.gamepadListener = listener;
-    this.identifyGamepad = typeof(identifyGamepad) != 'undefined' && identifyGamepad;
+    this.identifyGamepad = typeof(identifyGamepad) !== 'undefined' && identifyGamepad;
 
     this.onAxis   = this.onAxis.bind(this);
     this.onButton = this.onButton.bind(this);
@@ -22,8 +22,8 @@ GamepadMapper.prototype = Object.create(Mapper.prototype);
  * @type {Object}
  */
 GamepadMapper.prototype.sticks = {
-    "0": {"-1": "←", "1": "→", "0": "idle"},
-    "1": {"-1": "↑", "1": "↓", "0": "idle"}
+    '0': {'-1': '←', '1': '→', '0': 'idle'},
+    '1': {'-1': '↑', '1': '↓', '0': 'idle'}
 };
 
 /**
@@ -92,9 +92,9 @@ GamepadMapper.prototype.guessChar = function(key)
         button = new RegExp('^(gamepad:\\d+:)?button:(\\d+)$', 'gi').exec(key);
 
     if (axis) {
-        return "Stick " + this.sticks[axis[2]][axis[3]];
+        return 'Stick ' + this.sticks[axis[2]][axis[3]];
     } else if (button) {
-        return "Button (" + button[2] + ")";
+        return 'Button (' + button[2] + ')';
     }
 
     return key;

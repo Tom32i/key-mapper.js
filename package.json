@@ -1,6 +1,6 @@
 {
   "name": "key-mapper.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple HTML5 Input Key mapper",
   "keywords": [
     "input",
@@ -18,10 +18,10 @@
     "url": "http://thomas-jarrand.com"
   },
   "devDependencies": {
-    "gulp": "^3.7.0",
-    "gulp-concat": "^2.2.0",
-    "gulp-header": "^1.0.2",
-    "gulp-jshint": "^1.6.1",
-    "gulp-uglify": "^0.3.0"
+    "gulp": "^3.8.*",
+    "gulp-concat": "^2.2.*",
+    "gulp-header": "^1.0.*",
+    "gulp-jshint": "^1.6.*",
+    "gulp-uglify": "^0.3.*"
   }
 }

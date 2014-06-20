@@ -1,5 +1,5 @@
 /*!
- * key-mapper.js 0.0.1
+ * key-mapper.js 0.0.2
  * https://github.com/Tom32i/key-mapper.js
  * Copyright 2014 Thomas JARRAND
  */
@@ -13,7 +13,7 @@ function EventEmitter(){this._eventElement=document.createElement("div")}EventEm
 
 function OptionResolver(t){this.allowExtra="undefined"!=typeof t&&t,this.defaults={},this.types={},this.optional=[],this.required=[]}OptionResolver.prototype.setDefaults=function(t){for(var e in t)t.hasOwnProperty(e)&&(this.defaults[e]=t[e]);return this},OptionResolver.prototype.setTypes=function(t){for(var e in t)t.hasOwnProperty(e)&&(this.types[e]=t[e]);return this},OptionResolver.prototype.setOptional=function(t){return this.allowExtra?void 0:(this.addToArray(this.optionals,t),this)},OptionResolver.prototype.setRequired=function(t){return this.addToArray(this.required,t),this},OptionResolver.prototype.resolve=function(t){var e={};for(var o in this.defaults)this.defaults.hasOwnProperty(o)&&(e[o]=this.getValue(t,o));for(var i=this.required.length-1;i>=0;i--)if(o=this.required[i],"undefined"==typeof e[o])throw'Option "'+o+'" is required.';return e},OptionResolver.prototype.getValue=function(t,e){var o=null;if(!this.optionExists(e))throw'Unkown option "'+e+'".';return"undefined"!=typeof t[e]?o=t[e]:"undefined"!=typeof this.defaults[e]&&(o=this.defaults[e]),this.checkType(e,o),o},OptionResolver.prototype.checkType=function(t,e){var o="undefined"!=typeof this.types[t]?this.types[t]:!1,i=typeof e;if(o&&i!==o&&("string"===o&&(e=String(e)),"boolean"===o&&(e=Boolean(e)),"number"===o&&(e=Number(e)),i=typeof e,o!==i))throw'Wrong type for option "'+t+'". Expected '+this.types[t]+" but got "+typeof e},OptionResolver.prototype.optionExists=function(t){return this.allowExtra?!0:"undefined"!=typeof this.defaults[t]||this.optional.indexOf(t)>=0||this.required.indexOf(t)>=0},OptionResolver.prototype.addToArray=function(t,e){for(var o,i=e.length-1;i>=0;i--)o=e[i],t.indexOf(o)>=0&&t.push(o)};
 /*!
- * gamepad.js 0.0.2
+ * gamepad.js 0.0.1
  * https://github.com/Tom32i/gamepad.js
  * Copyright 2014 Thomas JARRAND
  */
@@ -30,7 +30,7 @@ function InputListener (mapper, input)
     EventEmitter.call(this);
 
     this.mapper  = mapper;
-    this.element = typeof(input) == 'string' ? document.getElementById(input) : input;
+    this.element = typeof(input) === 'string' ? document.getElementById(input) : input;
 
     this.onMapperListening = this.onMapperListening.bind(this);
     this.onMapperChange    = this.onMapperChange.bind(this);
@@ -220,25 +220,25 @@ KeyboardMapper.prototype.guessChar = function(key)
 
     switch (key) {
         case '8':
-            return "Backspace";
+            return 'Backspace';
         case '13':
-            return "Enter";
+            return 'Enter';
         case '16':
-            return "Maj";
+            return 'Maj';
         case '17':
-            return "Ctrl";
+            return 'Ctrl';
         case '18':
-            return "Alt";
+            return 'Alt';
         case '32':
-            return "Space";
+            return 'Space';
         case '38':
-            return "↑";
+            return '↑';
         case '40':
-            return "↓";
+            return '↓';
         case '39':
-            return "→";
+            return '→';
         case '37':
-            return "←";
+            return '←';
         default:
             return String.fromCharCode(key);
     }
@@ -248,11 +248,12 @@ KeyboardMapper.prototype.guessChar = function(key)
  *
  * @param {GamepadListener} listener
  */
-function GamepadMapper(listener)
+function GamepadMapper(listener, identifyGamepad)
 {
     Mapper.call(this);
 
     this.gamepadListener = listener;
+    this.identifyGamepad = typeof(identifyGamepad) !== 'undefined' && identifyGamepad;
 
     this.onAxis   = this.onAxis.bind(this);
     this.onButton = this.onButton.bind(this);
@@ -266,8 +267,8 @@ GamepadMapper.prototype = Object.create(Mapper.prototype);
  * @type {Object}
  */
 GamepadMapper.prototype.sticks = {
-    "0": {"-1": "←", "1": "→", "0": "idle"},
-    "1": {"-1": "↑", "1": "↓", "0": "idle"}
+    '0': {'-1': '←', '1': '→', '0': 'idle'},
+    '1': {'-1': '↑', '1': '↓', '0': 'idle'}
 };
 
 /**
@@ -301,9 +302,10 @@ GamepadMapper.prototype.onAxis = function(e)
 {
     this.stop();
 
-    var value = e.detail.value > 0 ? 1 : (e.detail.value < 0 ? -1 : 0);
+    var value = e.detail.value > 0 ? 1 : (e.detail.value < 0 ? -1 : 0),
+        prefix = this.identifyGamepad ? 'gamepad:' + e.detail.gamepad.index + ':' : null;
 
-    this.setValue('axis:' + e.detail.axis + ':' + value);
+    this.setValue(prefix + 'axis:' + e.detail.axis + ':' + value);
 };
 
 /**
@@ -314,7 +316,11 @@ GamepadMapper.prototype.onAxis = function(e)
 GamepadMapper.prototype.onButton = function(e)
 {
     this.stop();
-    this.setValue('button:' + e.detail.index);
+
+    var value = e.detail.index,
+        prefix = this.identifyGamepad ? 'gamepad:' + e.detail.gamepad.index + ':' : null;
+
+    this.setValue(prefix + 'button:' + value);
 };
 
 
@@ -327,13 +333,13 @@ GamepadMapper.prototype.onButton = function(e)
  */
 GamepadMapper.prototype.guessChar = function(key)
 {
-    var axis = new RegExp('axis:(\\d+):(-?\\d+)', 'gi').exec(key),
-        button = new RegExp('button:(\\d+)', 'gi').exec(key);
+    var axis = new RegExp('^(gamepad:\\d+:)?axis:(\\d+):(-?\\d+)$', 'gi').exec(key),
+        button = new RegExp('^(gamepad:\\d+:)?button:(\\d+)$', 'gi').exec(key);
 
     if (axis) {
-        return "Stick " + this.sticks[axis[1]][axis[2]];
+        return 'Stick ' + this.sticks[axis[2]][axis[3]];
     } else if (button) {
-        return "Button (" + button[1] + ")";
+        return 'Button (' + button[2] + ')';
     }
 
     return key;

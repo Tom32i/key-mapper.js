@@ -60,25 +60,25 @@ KeyboardMapper.prototype.guessChar = function(key)
 
     switch (key) {
         case '8':
-            return "Backspace";
+            return 'Backspace';
         case '13':
-            return "Enter";
+            return 'Enter';
         case '16':
-            return "Maj";
+            return 'Maj';
         case '17':
-            return "Ctrl";
+            return 'Ctrl';
         case '18':
-            return "Alt";
+            return 'Alt';
         case '32':
-            return "Space";
+            return 'Space';
         case '38':
-            return "↑";
+            return '↑';
         case '40':
-            return "↓";
+            return '↓';
         case '39':
-            return "→";
+            return '→';
         case '37':
-            return "←";
+            return '←';
         default:
             return String.fromCharCode(key);
     }
