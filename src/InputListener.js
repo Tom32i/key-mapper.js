@@ -17,6 +17,12 @@ function InputListener (mapper, input)
     this.element.addEventListener('focus', mapper.start);
     this.element.addEventListener('blur', mapper.stop);
 
+    if (!(mapper instanceof KeyboardMapper)) {
+        this.element.addEventListener('keyup', mapper.kill);
+        this.element.addEventListener('keydown', mapper.kill);
+        this.element.addEventListener('keypress', mapper.kill);
+    }
+
     this.mapper.on('listening:start', this.onMapperListening);
     this.mapper.on('listening:stop', this.onMapperChange);
     this.mapper.on('change', this.onMapperChange);
