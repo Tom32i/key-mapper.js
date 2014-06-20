@@ -3,11 +3,12 @@
  *
  * @param {GamepadListener} listener
  */
-function GamepadMapper(listener)
+function GamepadMapper(listener, identifyGamepad)
 {
     Mapper.call(this);
 
     this.gamepadListener = listener;
+    this.identifyGamepad = typeof(identifyGamepad) != 'undefined' && identifyGamepad;
 
     this.onAxis   = this.onAxis.bind(this);
     this.onButton = this.onButton.bind(this);
@@ -56,9 +57,10 @@ GamepadMapper.prototype.onAxis = function(e)
 {
     this.stop();
 
-    var value = e.detail.value > 0 ? 1 : (e.detail.value < 0 ? -1 : 0);
+    var value = e.detail.value > 0 ? 1 : (e.detail.value < 0 ? -1 : 0),
+        prefix = this.identifyGamepad ? 'gamepad:' + e.detail.gamepad.index + ':' : null;
 
-    this.setValue('axis:' + e.detail.axis + ':' + value);
+    this.setValue(prefix + 'axis:' + e.detail.axis + ':' + value);
 };
 
 /**
@@ -69,7 +71,11 @@ GamepadMapper.prototype.onAxis = function(e)
 GamepadMapper.prototype.onButton = function(e)
 {
     this.stop();
-    this.setValue('button:' + e.detail.index);
+
+    var value = e.detail.index,
+        prefix = this.identifyGamepad ? 'gamepad:' + e.detail.gamepad.index + ':' : null;
+
+    this.setValue(prefix + 'button:' + value);
 };
 
 
@@ -82,13 +88,13 @@ GamepadMapper.prototype.onButton = function(e)
  */
 GamepadMapper.prototype.guessChar = function(key)
 {
-    var axis = new RegExp('axis:(\\d+):(-?\\d+)', 'gi').exec(key),
-        button = new RegExp('button:(\\d+)', 'gi').exec(key);
+    var axis = new RegExp('^(gamepad:\\d+:)?axis:(\\d+):(-?\\d+)$', 'gi').exec(key),
+        button = new RegExp('^(gamepad:\\d+:)?button:(\\d+)$', 'gi').exec(key);
 
     if (axis) {
-        return "Stick " + this.sticks[axis[1]][axis[2]];
+        return "Stick " + this.sticks[axis[2]][axis[3]];
     } else if (button) {
-        return "Button (" + button[1] + ")";
+        return "Button (" + button[2] + ")";
     }
 
     return key;
