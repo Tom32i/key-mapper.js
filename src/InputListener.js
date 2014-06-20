@@ -45,7 +45,7 @@ InputListener.prototype.onMapperListening = function(e)
 InputListener.prototype.onMapperChange = function(e)
 {
     this.element.value       = this.mapper.view;
-    this.element.placeholder = null;
+    this.element.placeholder = '';
 
     this.element.blur();
 };

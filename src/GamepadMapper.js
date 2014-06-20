@@ -2,13 +2,14 @@
  * Bind Input
  *
  * @param {GamepadListener} listener
+ * @param {boolean} indexGamepad
  */
-function GamepadMapper(listener, identifyGamepad)
+function GamepadMapper(listener, indexGamepad)
 {
     Mapper.call(this);
 
     this.gamepadListener = listener;
-    this.identifyGamepad = typeof(identifyGamepad) !== 'undefined' && identifyGamepad;
+    this.indexGamepad    = typeof(indexGamepad) !== 'undefined' && indexGamepad;
 
     this.onAxis   = this.onAxis.bind(this);
     this.onButton = this.onButton.bind(this);
@@ -58,7 +59,7 @@ GamepadMapper.prototype.onAxis = function(e)
     this.stop();
 
     var value = e.detail.value > 0 ? 1 : (e.detail.value < 0 ? -1 : 0),
-        prefix = this.identifyGamepad ? 'gamepad:' + e.detail.gamepad.index + ':' : null;
+        prefix = this.indexGamepad ? 'gamepad:' + e.detail.gamepad.index + ':' : '';
 
     this.setValue(prefix + 'axis:' + e.detail.axis + ':' + value);
 };
@@ -73,7 +74,7 @@ GamepadMapper.prototype.onButton = function(e)
     this.stop();
 
     var value = e.detail.index,
-        prefix = this.identifyGamepad ? 'gamepad:' + e.detail.gamepad.index + ':' : null;
+        prefix = this.indexGamepad ? 'gamepad:' + e.detail.gamepad.index + ':' : '';
 
     this.setValue(prefix + 'button:' + value);
 };
