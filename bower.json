@@ -1,0 +1,33 @@
+{
+  "name": "key-mapper.js",
+  "version": "0.0.1",
+  "description": "Simple HTML5 Input Key mapper",
+  "keywords": [
+    "input",
+    "mapping",
+    "key",
+    "gamepad",
+    "keyboard",
+    "html5"
+  ],
+  "homepage": "https://github.com/Tom32i/key-mapper.js",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thomas JARRAND",
+      "email": "thomas.jarrand@gmail.com",
+      "homepage": "http://thomas-jarrand.com"
+    }
+  ],
+  "main": "dist/gamepad.min.js",
+  "dependencies": {
+    "tom32i-event-emitter.js": "~0.0.1",
+    "tom32i-option-resolver.js": "~0.0.2",
+    "tom32i-gamepad.js": "~0.0.2"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ]
+}
