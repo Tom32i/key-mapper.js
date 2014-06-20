@@ -20,6 +20,17 @@ Gamepad binding:
 var gamepadListener = new GamepadListener({precision: 2, deadZone: 0.3}),
     mapper = new GamepadMapper(gamepadListener),
     listener = new InputListener(mapper, 'my-input-field');
+
+gamepadListener.start();
+```
+
+Gamepad specific binding:
+```javascript
+var gamepadListener = new GamepadListener({precision: 2, deadZone: 0.3}),
+    mapper = new GamepadMapper(gamepadListener, true),
+    listener = new InputListener(mapper, 'my-input-field');
+
+gamepadListener.start();
 ```
 
 ## Events:
