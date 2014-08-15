@@ -1,6 +1,6 @@
 {
   "name": "key-mapper.js",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Simple HTML5 Input Key mapper",
   "keywords": [
     "input",
