@@ -16,7 +16,8 @@ var srcDir = './src/',
         './src/InputListener.js',
         './src/Mapper.js',
         './src/KeyboardMapper.js',
-        './src/GamepadMapper.js'
+        './src/GamepadMapper.js',
+        './src/TouchMapper.js'
     ],
     banner = [
       '/*!',

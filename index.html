@@ -27,6 +27,12 @@
             <p>Value: <span class="value"></span></p>
         </div>
 
+        <div>
+            <label for="touch">Touch mapping:</label>
+            <input type="text" id="touch"/>
+            <p>Value: <span class="value"></span></p>
+        </div>
+
         <script src="dist/key-mapper.js"></script>
         <script type="text/javascript">
             window.addEventListener('load', function () {
@@ -37,8 +43,6 @@
                         deadZone: 0.3
                     });
 
-                console.log(gamepadListener, values);
-
                 var keyboardMapper = new KeyboardMapper(),
                     keyboardInput = new InputListener(keyboardMapper, 'keyboard');
 
@@ -47,6 +51,9 @@
 
                 var gamepadDistinctMapper = new GamepadMapper(gamepadListener, true),
                     gamepadDistinctInput = new InputListener(gamepadDistinctMapper, 'gamepad-distinct');
+
+                var touchMapper = new TouchMapper(),
+                    touchInput = new InputListener(touchMapper, 'touch');
 
                 keyboardMapper.on('change', function (e) {
                     console.log(e);
@@ -61,6 +68,11 @@
                 gamepadDistinctMapper.on('change', function (e) {
                     console.log(e);
                     values[2].innerHTML = e.detail.value;
+                });
+
+                touchMapper.on('change', function (e) {
+                    console.log(e);
+                    values[3].innerHTML = e.detail.value;
                 });
 
                 gamepadListener.start();

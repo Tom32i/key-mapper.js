@@ -1,19 +1,19 @@
 /**
- * Keyboard Mapper
+ * Touch Mapper
  */
-function KeyboardMapper()
+function TouchMapper()
 {
     Mapper.call(this);
 
     this.onTouch = this.onTouch.bind(this);
 }
 
-KeyboardMapper.prototype = Object.create(Mapper.prototype);
+TouchMapper.prototype = Object.create(Mapper.prototype);
 
 /**
  * Start listening
  */
-KeyboardMapper.prototype.start = function()
+TouchMapper.prototype.start = function()
 {
     if (Mapper.prototype.start.call(this)) {
         window.addEventListener('touchstart', this.onTouch);
@@ -26,7 +26,7 @@ KeyboardMapper.prototype.start = function()
 /**
  * Stop listening
  */
-KeyboardMapper.prototype.stop = function()
+TouchMapper.prototype.stop = function()
 {
     if (Mapper.prototype.stop.call(this)) {
         window.removeEventListener('touchstart', this.onTouch);
@@ -41,14 +41,12 @@ KeyboardMapper.prototype.stop = function()
  *
  * @param {Event} e
  */
-KeyboardMapper.prototype.onTouch = function(e)
+TouchMapper.prototype.onTouch = function(e)
 {
     e.preventDefault();
 
-    console.log(e);
-
     this.stop();
-    this.setValue('touch');
+    this.setValue(e.changedTouches[0]);
 
     return false;
 };
@@ -60,7 +58,7 @@ KeyboardMapper.prototype.onTouch = function(e)
  *
  * @return {String}
  */
-KeyboardMapper.prototype.guessChar = function(key)
+TouchMapper.prototype.guessChar = function(key)
 {
     return '✍';
 };

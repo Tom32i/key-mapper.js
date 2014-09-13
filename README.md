@@ -33,6 +33,12 @@ var gamepadListener = new GamepadListener({precision: 2, deadZone: 0.3}),
 gamepadListener.start();
 ```
 
+Touch binding:
+```javascript
+var mapper = new TouchMapper(),
+    listener = new InputListener(mapper, 'my-input-field');
+```
+
 ## Events:
 
 Listen for value change on the mapping:
@@ -48,3 +54,5 @@ mapper.on('change',  function (event) {
      */
 });
 ```
+
+The touch mapper return a `Touch` object as the value.
