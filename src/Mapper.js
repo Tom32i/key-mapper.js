@@ -16,6 +16,7 @@ function Mapper()
 }
 
 Mapper.prototype = Object.create(EventEmitter.prototype);
+Mapper.prototype.constructor = Mapper;
 
 /**
  * Mapper

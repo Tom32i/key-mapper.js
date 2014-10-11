@@ -16,6 +16,7 @@ function GamepadMapper(listener, indexGamepad)
 }
 
 GamepadMapper.prototype = Object.create(Mapper.prototype);
+GamepadMapper.prototype.constructor = GamepadMapper;
 
 /**
  * Sticks

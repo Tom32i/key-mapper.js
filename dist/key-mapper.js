@@ -1,5 +1,5 @@
 /*!
- * key-mapper.js 0.0.5
+ * key-mapper.js 0.1.0
  * https://github.com/Tom32i/key-mapper.js
  * Copyright 2014 Thomas JARRAND
  */
@@ -50,6 +50,7 @@ function InputListener (mapper, input)
 }
 
 InputListener.prototype = Object.create(EventEmitter.prototype);
+InputListener.prototype.constructor = InputListener;
 
 /**
  * On mapper listening
@@ -88,6 +89,7 @@ function Mapper()
 }
 
 Mapper.prototype = Object.create(EventEmitter.prototype);
+Mapper.prototype.constructor = Mapper;
 
 /**
  * Mapper
@@ -169,6 +171,7 @@ function KeyboardMapper()
 }
 
 KeyboardMapper.prototype = Object.create(Mapper.prototype);
+KeyboardMapper.prototype.constructor = KeyboardMapper;
 
 /**
  * Start listening
@@ -261,6 +264,7 @@ function GamepadMapper(listener, indexGamepad)
 }
 
 GamepadMapper.prototype = Object.create(Mapper.prototype);
+GamepadMapper.prototype.constructor = GamepadMapper;
 
 /**
  * Sticks
@@ -356,6 +360,7 @@ function TouchMapper()
 }
 
 TouchMapper.prototype = Object.create(Mapper.prototype);
+TouchMapper.prototype.constructor = TouchMapper;
 
 /**
  * Start listening

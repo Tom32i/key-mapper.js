@@ -9,6 +9,7 @@ function KeyboardMapper()
 }
 
 KeyboardMapper.prototype = Object.create(Mapper.prototype);
+KeyboardMapper.prototype.constructor = KeyboardMapper;
 
 /**
  * Start listening

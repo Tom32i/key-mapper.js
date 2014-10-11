@@ -9,6 +9,7 @@ function TouchMapper()
 }
 
 TouchMapper.prototype = Object.create(Mapper.prototype);
+TouchMapper.prototype.constructor = TouchMapper;
 
 /**
  * Start listening
