@@ -29,6 +29,7 @@ function InputListener (mapper, input)
 }
 
 InputListener.prototype = Object.create(EventEmitter.prototype);
+InputListener.prototype.constructor = InputListener;
 
 /**
  * On mapper listening
