@@ -28,9 +28,9 @@ Mapper.prototype.setValue = function(value)
     if (this.value !== value) {
         this.value = value;
         this.view  = this.guessChar(this.value);
-
-        this.emit('change', {value: this.value, view: this.view});
     }
+
+    this.emit('change', {value: this.value, view: this.view});
 };
 
 /**

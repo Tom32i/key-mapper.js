@@ -1,5 +1,5 @@
 /*!
- * key-mapper.js 0.1.0
+ * key-mapper.js 0.1.1
  * https://github.com/Tom32i/key-mapper.js
  * Copyright 2014 Thomas JARRAND
  */
@@ -101,9 +101,9 @@ Mapper.prototype.setValue = function(value)
     if (this.value !== value) {
         this.value = value;
         this.view  = this.guessChar(this.value);
-
-        this.emit('change', {value: this.value, view: this.view});
     }
+
+    this.emit('change', {value: this.value, view: this.view});
 };
 
 /**
