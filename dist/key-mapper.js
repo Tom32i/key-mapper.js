@@ -1,5 +1,5 @@
 /*!
- * key-mapper.js 0.1.0
+ * key-mapper.js 0.1.1
  * https://github.com/Tom32i/key-mapper.js
  * Copyright 2014 Thomas JARRAND
  */
@@ -101,7 +101,6 @@ Mapper.prototype.setValue = function(value)
     if (this.value !== value) {
         this.value = value;
         this.view  = this.guessChar(this.value);
-
         this.emit('change', {value: this.value, view: this.view});
     }
 };
@@ -305,12 +304,12 @@ GamepadMapper.prototype.stop = function()
  */
 GamepadMapper.prototype.onAxis = function(e)
 {
-    this.stop();
 
     var value = e.detail.value > 0 ? 1 : (e.detail.value < 0 ? -1 : 0),
         prefix = this.indexGamepad ? 'gamepad:' + e.detail.gamepad.index + ':' : '';
 
     this.setValue(prefix + 'axis:' + e.detail.axis + ':' + value);
+    this.stop();
 };
 
 /**

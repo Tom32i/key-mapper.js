@@ -57,12 +57,12 @@ GamepadMapper.prototype.stop = function()
  */
 GamepadMapper.prototype.onAxis = function(e)
 {
-    this.stop();
 
     var value = e.detail.value > 0 ? 1 : (e.detail.value < 0 ? -1 : 0),
         prefix = this.indexGamepad ? 'gamepad:' + e.detail.gamepad.index + ':' : '';
 
     this.setValue(prefix + 'axis:' + e.detail.axis + ':' + value);
+    this.stop();
 };
 
 /**
