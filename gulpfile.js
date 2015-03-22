@@ -9,7 +9,6 @@ var srcDir = './src/',
     distDir = './dist/',
     vendors = [
         './bower_components/tom32i-event-emitter.js/dist/event-emitter.min.js',
-        './bower_components/tom32i-option-resolver.js/dist/option-resolver.min.js',
         './bower_components/tom32i-gamepad.js/dist/gamepad.min.js'
     ],
     sources = [
@@ -33,6 +32,13 @@ gulp.task('jshint', function() {
         .pipe(jshint.reporter());
 });
 
+gulp.task('source', function() {
+    gulp.src(sources)
+        .pipe(concat(meta.name.replace('.js', '.src.js')))
+        .pipe(header(banner, meta))
+        .pipe(gulp.dest(distDir));
+});
+
 gulp.task('full', function() {
     gulp.src(vendors.concat(sources))
         .pipe(concat(meta.name))
@@ -52,4 +58,4 @@ gulp.task('watch', ['default'], function () {
     gulp.watch(srcDir + '**/*.js', ['default']);
 });
 
-gulp.task('default', ['jshint', 'full', 'min']);
+gulp.task('default', ['jshint', 'source', 'full', 'min']);
